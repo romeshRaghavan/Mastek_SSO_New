@@ -2266,7 +2266,7 @@ function oprationOnWallet() {
 
 function hideTRIcons() {
     if (window.localStorage.getItem("TrRole") == "true") {
-        document.getElementById('CategoryTrRoleID').style.display = "block";
+        document.getElementById('CategoryTrRoleID').style.display = "none";
     } else {
         document.getElementById('CategoryTrRoleID').style.display = "none";
     }
