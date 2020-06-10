@@ -78,8 +78,8 @@
     authenticate: function (authCompletedCallback) {
        try{
             alert("above microsoft");
-        var context = new Microsoft.ADAL.AuthenticationContext(this.authority);
-        alert("context :"+context.accessToken);
+        var context = new Microsoft.ADAL.AuthenticationContext(authority);
+        alert("context :"+context);
         
         //alert("context :"+auth.context);
         }
@@ -108,6 +108,7 @@
                 });
             });
         });
+        alert("outside method");
     },
 
     //Redirect to App - Homepage
