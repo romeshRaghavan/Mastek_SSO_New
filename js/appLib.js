@@ -78,7 +78,7 @@
     authenticate: function (authCompletedCallback) {
        try{
             alert("above microsoft");
-        var context = new Microsoft.ADAL.AuthenticationContext(authority);
+        var context = new Microsoft.ADAL.AuthenticationContext(authority,true);
         alert("context :"+context.accessToken);
         
         //alert("context :"+auth.context);
