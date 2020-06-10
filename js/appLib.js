@@ -1,4 +1,4 @@
- var appPageHistory = [];
+var appPageHistory = [];
  var jsonToBeSend = new Object();
  var jsonBEArr = [];
  var budgetingStatus;
@@ -12,10 +12,12 @@
  var successMsgForCurrency = "Currency synchronized successfully.";
  var errorMsgForCurrency = "Currency not synchronized successfully.";
 
- var authority = 'https://login.microsoftonline.com/';
- var resourceUri = 'https://graph.windows.net/';
- var clientId = 'f97ffe70-98ab-4a54-8413-70dfa5339ed2';
- var redirectUri = 'https://expenzingmobileapp.com/';
+ //var AuthenticationContext;
+
+/*var authority = 'https://login.microsoftonline.com/';
+var resourceUrl = 'https://graph.windows.net/';
+var appId = 'f97ffe70-98ab-4a54-8413-70dfa5339ed2';
+var redirectUrl = 'http://ESSMobile';*/
 
  var app = {
      // Application Constructor
@@ -27,20 +29,17 @@
      // Bind any events that are required on startup. Common events are:
      // 'load', 'deviceready', 'offline', and 'online'.
      bindEvents: function() {
-         //document.addEventListener("deviceready", this.onDeviceReady, false);
-         document.addEventListener("deviceready", app.signIn, false);
-
-     /*        if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
-                
-        document.addEventListener("deviceready", onDeviceReady, false);
-    } else {
-        alert("2");
-        app.onDeviceReady();
-    }*/
+        //document.addEventListener("deviceready", this.onDeviceReady, false);
+        alert("11");
+      document.addEventListener("deviceready", this.onDeviceReady, false);
+        //document.getElementById('create-context').addEventListener('click', app.createContext);
+        //app.onDeviceReady();
      },
 
      onDeviceReady: function() {
-        app.signIn();
+alert("22");
+           auth.signIn();
+           
          if (navigator.notification) { // Override default HTML alert with native dialog
              window.alert = function(message) {
                  navigator.notification.alert(
@@ -58,64 +57,7 @@
          document.addEventListener('onSMSArrive', function(e) {
              saveIncomingSMSOnLocal(e);
          }, false);
-     },
-
-     signIn: function ()
-    {
-      alert("1");
-        app.authenticate(function (authresult) {
-
-          alert("in authenticate")
-            //localStorage.OauthToken = authresult.accessToken;
-
-            //redirectHome();
-
-        });
-    },
-   
-    //ADAL Authentication
-    
-    authenticate: function (authCompletedCallback) {
-       try{
-            alert("above microsoft");
-        var context = new Microsoft.ADAL.AuthenticationContext(authority);
-        alert("context :"+context.accessToken);
-        
-        //alert("context :"+auth.context);
-        }
-        catch(e){
-            alert("in catch");
-          console.log(e)
-        }
-        alert("below catch");
-        context.tokenCache.readItems().then(function (items) {
-         alert("111");
-            if (items.length > 0) {
-                alert("items.length :"+items.length);
-                authority = items[0].authority;
-                alert("authority :"+authority);
-                context = new Microsoft.ADAL.AuthenticationContext(authority);
-                alert("length context :"+context);
-            }
-            // Attempt to authorize user silently
-            context.acquireTokenSilentAsync(resourceUri, clientId)
-            .then(authCompletedCallback, function () {
-
-                // We require user cridentials so triggers authentication dialog
-                context.acquireTokenAsync(resourceUri, clientId, redirectUri)
-                .then(authCompletedCallback, function (err) {
-                    app.error("Failed to authenticate: " + err);
-                });
-            });
-        });
-    },
-
-    //Redirect to App - Homepage
-    redirectHome: function () {
-        
-        //window.location.href = homepage;
-
-    }
+     }
  };
 
  function goBack() {
@@ -222,6 +164,34 @@ function arrayRemove(arr, value) {
      }
  }
 
+/*function test() {
+        app.logArea = document.getElementById("log-area");
+        app.log("Cordova initialized, 'deviceready' event was fired");
+        redirect();
+        AuthenticationContext = new Microsoft.ADAL.AuthenticationContext(authority);
+        alert("AuthenticationContext :"+AuthenticationContext);
+        // app.receivedEvent('deviceready');
+    }
+
+function redirect(){
+
+var testurl = authority
+                + this.tenantName
+                + "/oauth2/authorize?response_type=code&scope=directory.read.all&response_mode=form_post&redirect_uri="
+                + encodeURI(redirectUrl) + "&client_id="
+                + appId + "&resource=https%3a%2f%2fgraph.microsoft.com"
+                + "&state=" + uuidv4()
+                + "&nonce=" + uuidv4();
+                alert(testurl);
+     window.location = testurl;           
+}
+
+function uuidv4() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}*/
  //Local Database Create,Save,Display
 
  //Test for browser compatibility
