@@ -79,8 +79,8 @@
        try{
             alert("above microsoft");
         var context = new Microsoft.ADAL.AuthenticationContext(authority);
-        alert("context :"+context);
-        alert("below microsoft");
+        alert("context :"+context.accessToken);
+        
         //alert("context :"+auth.context);
         }
         catch(e){
@@ -88,10 +88,12 @@
           console.log(e)
         }
         context.tokenCache.readItems().then(function (items) {
-         
+         alert("111");
             if (items.length > 0) {
                 authority = items[0].authority;
+                alert("authority :"+authority);
                 context = new Microsoft.ADAL.AuthenticationContext(authority);
+                alert("item context :"+context);
             }
             // Attempt to authorize user silently
             /*context.acquireTokenSilentAsync(resourceUri, clientId)
@@ -108,7 +110,7 @@
 
     //Redirect to App - Homepage
     redirectHome: function () {
-        alert("222");
+        
         //window.location.href = homepage;
 
     }
