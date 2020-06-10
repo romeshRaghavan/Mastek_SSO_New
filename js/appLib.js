@@ -12,10 +12,14 @@
  var successMsgForCurrency = "Currency synchronized successfully.";
  var errorMsgForCurrency = "Currency not synchronized successfully.";
 
- var authority = 'https://login.microsoftonline.com/';
- var resourceUri = 'https://graph.windows.net/';
- var clientId = 'f97ffe70-98ab-4a54-8413-70dfa5339ed2';
- var redirectUri = 'https://expenzingmobileapp.com/';
+ //var authority = 'https://login.microsoftonline.com/';
+ //var resourceUri = 'https://graph.windows.net/';
+ //var clientId = 'f97ffe70-98ab-4a54-8413-70dfa5339ed2';
+ //var redirectUri = 'https://expenzingmobileapp.com/';
+ 
+ var authority = "https://login.windows.net/mastekgroup.onmicrosoft.com",
+    redirectUri = "http://ESSMobile",      
+    clientId = "8619acfa-a9c7-4d8c-b909-52002c627748";
 
  var app = {
      // Application Constructor
@@ -27,16 +31,8 @@
      // Bind any events that are required on startup. Common events are:
      // 'load', 'deviceready', 'offline', and 'online'.
      bindEvents: function() {
-         document.addEventListener("deviceready", this.onDeviceReady, false);
-         //document.addEventListener("deviceready", app.signIn, false);
-
-     /*        if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
-                
-        document.addEventListener("deviceready", onDeviceReady, false);
-    } else {
-        alert("2");
-        app.onDeviceReady();
-    }*/
+		 
+         document.addEventListener("deviceready", this.onDeviceReady, false);      
      },
 
      onDeviceReady: function() {
@@ -62,55 +58,42 @@
 
      signIn: function ()
     {
-      alert("1");
+        alert("signIn");
+		
         app.authenticate(function (authresult) {
-
-          alert("in authenticate")
-            //localStorage.OauthToken = authresult.accessToken;
-
-            //redirectHome();
+           
+		   alert("authresult.accessToken - " + authresult.accessToken);
 
         });
     },
    
     //ADAL Authentication
     
-    authenticate: function (authCompletedCallback) {
-       try{
-            alert("above microsoft");
-        var context = new Microsoft.ADAL.AuthenticationContext(authority);
-       
-        alert("Context :"+context);
-        alert("Access Token :"+context.accessToken);
-        
-        //alert("context :"+auth.context);
-        }
-        catch(e){
-            alert("in catch");
-          console.log(e)
-        }
-        alert("below catch");
-        context.tokenCache.readItems().then(function (items) {
-         alert("111");
-            if (items.length > 0) {
-                alert("items.length :"+items.length);
-                authority = items[0].authority;
-                alert("authority :"+authority);
-                context = new Microsoft.ADAL.AuthenticationContext(authority);
-                alert("length context :"+context);
+    authenticate: function (authCompletedCallback) {	
+		
+		
+        app.context = new Microsoft.ADAL.AuthenticationContext(authority);        
+				
+		app.context.tokenCache.readItems().then(function (cacheItems) {
+         
+		 alert("items.length - " + cacheItems.length);
+		 
+            if (cacheItems.length > 0) {
+				
+                authority = cacheItems[0].authority;
+				
+                app.context = new Microsoft.ADAL.AuthenticationContext(authority);
+				
+				 var testUserId = cacheItems[0].userInfo.userId;
+				 
+				 alert("testUserId - " + testUserId);
+				 
+				 app.redirectHome();
             }
-            // Attempt to authorize user silently
-            context.acquireTokenSilentAsync(resourceUri, clientId)
-            .then(authCompletedCallback, function () {
-
-                // We require user cridentials so triggers authentication dialog
-                context.acquireTokenAsync(resourceUri, clientId, redirectUri)
-                .then(authCompletedCallback, function (err) {
-                    app.error("Failed to authenticate: " + err);
-                });
-            });
+           
         });
-        alert("outside method");
+		
+		
     },
 
     //Redirect to App - Homepage
