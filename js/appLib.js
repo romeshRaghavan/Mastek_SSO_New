@@ -78,33 +78,35 @@
     authenticate: function (authCompletedCallback) {
        try{
             alert("above microsoft");
-        var context = new Microsoft.ADAL.AuthenticationContext(authority,true);
+        var context = new Microsoft.ADAL.AuthenticationContext(authority);
         alert("context :"+context.accessToken);
         
         //alert("context :"+auth.context);
         }
         catch(e){
-            alert(e);
+            alert("in catch");
           console.log(e)
         }
+        alert("below catch");
         context.tokenCache.readItems().then(function (items) {
          alert("111");
             if (items.length > 0) {
+                alert("items.length :"+items.length);
                 authority = items[0].authority;
                 alert("authority :"+authority);
-                var context = new Microsoft.ADAL.AuthenticationContext(authority);
-                alert("item context :"+context);
+                context = new Microsoft.ADAL.AuthenticationContext(authority);
+                alert("length context :"+context);
             }
             // Attempt to authorize user silently
-            /*context.acquireTokenSilentAsync(resourceUri, clientId)
+            context.acquireTokenSilentAsync(resourceUri, clientId)
             .then(authCompletedCallback, function () {
 
                 // We require user cridentials so triggers authentication dialog
                 context.acquireTokenAsync(resourceUri, clientId, redirectUri)
                 .then(authCompletedCallback, function (err) {
                     app.error("Failed to authenticate: " + err);
-                });*/
-            //});
+                });
+            });
         });
     },
 
