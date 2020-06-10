@@ -79,7 +79,7 @@
        try{
             alert("above microsoft");
         var context = new Microsoft.ADAL.AuthenticationContext(authority);
-        alert("context :"+context);
+        alert("context :"+context.accessToken);
         
         //alert("context :"+auth.context);
         }
