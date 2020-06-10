@@ -12,6 +12,11 @@
  var successMsgForCurrency = "Currency synchronized successfully.";
  var errorMsgForCurrency = "Currency not synchronized successfully.";
 
+ var authority = 'https://login.microsoftonline.com/';
+ var resourceUri = 'https://graph.windows.net/';
+ var clientId = 'f97ffe70-98ab-4a54-8413-70dfa5339ed2';
+ var redirectUri = 'https://expenzingmobileapp.com/';
+
  var app = {
      // Application Constructor
      initialize: function() {
@@ -22,10 +27,20 @@
      // Bind any events that are required on startup. Common events are:
      // 'load', 'deviceready', 'offline', and 'online'.
      bindEvents: function() {
-         document.addEventListener("deviceready", this.onDeviceReady, false);
+         //document.addEventListener("deviceready", this.onDeviceReady, false);
+         document.addEventListener("deviceready", app.signIn, false);
+
+     /*        if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
+                
+        document.addEventListener("deviceready", onDeviceReady, false);
+    } else {
+        alert("2");
+        app.onDeviceReady();
+    }*/
      },
 
      onDeviceReady: function() {
+        app.signIn();
          if (navigator.notification) { // Override default HTML alert with native dialog
              window.alert = function(message) {
                  navigator.notification.alert(
@@ -43,7 +58,59 @@
          document.addEventListener('onSMSArrive', function(e) {
              saveIncomingSMSOnLocal(e);
          }, false);
-     }
+     },
+
+     signIn: function ()
+    {
+      alert("1");
+        app.authenticate(function (authresult) {
+
+          alert("in authenticate")
+            //localStorage.OauthToken = authresult.accessToken;
+
+            //redirectHome();
+
+        });
+    },
+   
+    //ADAL Authentication
+    
+    authenticate: function (authCompletedCallback) {
+       try{
+            alert("above microsoft");
+        var context = new Microsoft.ADAL.AuthenticationContext(authority);
+        alert("below microsoft");
+        //alert("context :"+auth.context);
+        }
+        catch(e){
+            alert(e);
+          console.log(e)
+        }
+        context.tokenCache.readItems().then(function (items) {
+         
+            if (items.length > 0) {
+                authority = items[0].authority;
+                context = new Microsoft.ADAL.AuthenticationContext(authority);
+            }
+            // Attempt to authorize user silently
+            /*context.acquireTokenSilentAsync(resourceUri, clientId)
+            .then(authCompletedCallback, function () {
+
+                // We require user cridentials so triggers authentication dialog
+                context.acquireTokenAsync(resourceUri, clientId, redirectUri)
+                .then(authCompletedCallback, function (err) {
+                    app.error("Failed to authenticate: " + err);
+                });*/
+            //});
+        });
+    },
+
+    //Redirect to App - Homepage
+    redirectHome: function () {
+        alert("222");
+        //window.location.href = homepage;
+
+    }
  };
 
  function goBack() {
