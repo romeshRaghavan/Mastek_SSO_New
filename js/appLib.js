@@ -17,9 +17,8 @@
  //var clientId = 'f97ffe70-98ab-4a54-8413-70dfa5339ed2';
  //var redirectUri = 'https://expenzingmobileapp.com/';
  
- var authority = "https://login.windows.net/mastekgroup.onmicrosoft.com",
-    redirectUri = "http://ESSMobile",      
-    clientId = "8619acfa-a9c7-4d8c-b909-52002c627748";
+var authority = "https://login.windows.net/mastekgroup.onmicrosoft.com";
+var clientId = "f97ffe70-98ab-4a54-8413-70dfa5339ed2"; 
 
  var app = {
      // Application Constructor
@@ -58,50 +57,52 @@
 
      signIn: function ()
     {
-        alert("signIn");
+        alert("signIn - 1");		
 		
-        app.authenticate(function (authresult) {
+		app.context = new Microsoft.ADAL.AuthenticationContext(authority); 
+		
+		if(app.context != null)
+		{
+			alert("app.context is not null");
+			
+			app.context.tokenCache.readItems().then(function (cacheItems) {
+         
+			 alert("items.length - " + cacheItems.length);
+			 
+				if (cacheItems.length > 0) {
+					
+					authority = cacheItems[0].authority;
+					
+					 var testUserId = cacheItems[0].userInfo.userId;
+					 
+					 alert("testUserId - " + testUserId);
+					 
+					 app.redirectHome();
+				}
+				else
+				{
+					alert("token cacheItems is empty");
+					
+					app.context = new Microsoft.ADAL.AuthenticationContext(authority);
+					
+				}
            
-		   alert("authresult.accessToken - " + authresult.accessToken);
-
-        });
+			});				
+			
+		}
+		else{
+			
+			alert("app.context is  null");
+		}	
+		
     },
    
-    //ADAL Authentication
-    
-    authenticate: function (authCompletedCallback) {	
-		
-    alert("app.context :"+app.context.tokenCache);	
-	    
-        app.context = new Microsoft.ADAL.AuthenticationContext(authority);        
-				
-		app.context.tokenCache.readItems().then(function (cacheItems) {
-         
-		 alert("items.length - " + cacheItems.length);
-		 
-            if (cacheItems.length > 0) {
-				
-                authority = cacheItems[0].authority;
-				
-                app.context = new Microsoft.ADAL.AuthenticationContext(authority);
-				
-				 var testUserId = cacheItems[0].userInfo.userId;
-				 
-				 alert("testUserId - " + testUserId);
-				 
-				 app.redirectHome();
-            }
-           
-        });
-		
-		
-    },
-
     //Redirect to App - Homepage
     redirectHome: function () {
         
         //window.location.href = homepage;
 
+		alert("redirectHome");
     }
  };
 
