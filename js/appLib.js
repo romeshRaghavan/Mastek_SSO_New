@@ -92,7 +92,7 @@
             if (items.length > 0) {
                 authority = items[0].authority;
                 alert("authority :"+authority);
-                context = new Microsoft.ADAL.AuthenticationContext(authority);
+                var context = new Microsoft.ADAL.AuthenticationContext(authority);
                 alert("item context :"+context);
             }
             // Attempt to authorize user silently
