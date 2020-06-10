@@ -71,7 +71,8 @@
     
     authenticate: function (authCompletedCallback) {	
 		
-		
+    alert("app.context :"+app.context.tokenCache);	
+	    
         app.context = new Microsoft.ADAL.AuthenticationContext(authority);        
 				
 		app.context.tokenCache.readItems().then(function (cacheItems) {
