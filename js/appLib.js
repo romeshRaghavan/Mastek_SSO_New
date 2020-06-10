@@ -12,12 +12,12 @@
  var successMsgForCurrency = "Currency synchronized successfully.";
  var errorMsgForCurrency = "Currency not synchronized successfully.";
 
- //var authority = 'https://login.microsoftonline.com/';
+ var authority = 'https://login.microsoftonline.com/';
  //var resourceUri = 'https://graph.windows.net/';
  //var clientId = 'f97ffe70-98ab-4a54-8413-70dfa5339ed2';
  //var redirectUri = 'https://expenzingmobileapp.com/';
  
-var authority = "https://login.windows.net/mastekgroup.onmicrosoft.com";
+//var authority = "https://login.windows.net/mastekgroup.onmicrosoft.com";
 var clientId = "f97ffe70-98ab-4a54-8413-70dfa5339ed2"; 
 
  var app = {
