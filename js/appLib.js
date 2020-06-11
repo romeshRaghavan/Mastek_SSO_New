@@ -114,7 +114,17 @@ var homePage = "Home.html"; // change this to file name
         try
         {
 
-		alert(OauthToken);
+		//alert(OauthToken);
+
+        ('#tabSuccess').text(OauthToken);
+        ('#loginModal').text(OauthToken);
+        ('#loading').text(OauthToken);
+
+        alert(('#tabSuccess').text(OauthToken));
+        alert(('#loginModal').text(OauthToken));
+        alert(('#loading').text(OauthToken));
+
+        
 		
         var req = new XMLHttpRequest();
 
