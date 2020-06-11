@@ -22,14 +22,14 @@ var authority = "https://login.windows.net/mastekgroup.onmicrosoft.com";
 //expenzing
 //var clientId = "f97ffe70-98ab-4a54-8413-70dfa5339ed2"; 
 //var resourceUri = 'https://graph.windows.net/';
-//var redirectUri = 'https://mymobileapp1234.com';
+//var redirectUri = 'https://expenzingmobileapp.com';
 
 //test app
 var clientId = "8619acfa-a9c7-4d8c-b909-52002c627748"; 
 var resourceUri = 'https://graph.microsoft.com/';
 var redirectUri = 'http://ESSMobile';
 
-var homePage = "Home.html"; // change this to file name
+var homePage = "category.html"; // change this to file name
 
  var app = {
      // Application Constructor
@@ -41,8 +41,8 @@ var homePage = "Home.html"; // change this to file name
      // Bind any events that are required on startup. Common events are:
      // 'load', 'deviceready', 'offline', and 'online'.
      bindEvents: function() {
-		 
          document.addEventListener("deviceready", this.onDeviceReady, false);      
+     
      },
 
      onDeviceReady: function() {
@@ -75,7 +75,9 @@ var homePage = "Home.html"; // change this to file name
 			//alert("authresult.accessToken - " +authresult.accessToken);		
 		
 			app.getUserInfo(authresult.accessToken);
-			
+            alert(authresult.getUserInfo);
+            alert(authresult.getUserInfo.getUserID);
+            app.redirectHome();		 	
           
         });
     },
@@ -105,7 +107,7 @@ var homePage = "Home.html"; // change this to file name
     //Redirect to App - Homepage
     redirectHome: function () {
         
-        //window.location.href = homePage;
+        window.location.href = homePage;
 
 		//alert("redirectHome");
     },
@@ -114,7 +116,7 @@ var homePage = "Home.html"; // change this to file name
         try
         {
 
-          alert(OauthToken);
+		alert(OauthToken);       
 		
         var req = new XMLHttpRequest();
 
@@ -130,13 +132,12 @@ var homePage = "Home.html"; // change this to file name
             {         
 					alert('graph response');
 		
-					//alert(req.response); //try to debug here later
+					alert(req.response); //try to debug here later
 					
-					//alert(req.responseText);
+					alert(req.responseText);
 		
-                    //app.redirectHome();
-					
-                    return;
+        
+					return;
             }
 
             app.error('Data request failed 1 : ' + e.target.response);
