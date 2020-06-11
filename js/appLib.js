@@ -114,7 +114,7 @@ var homePage = "Home.html"; // change this to file name
         try
         {
 
-		//alert('inside getUserInfo');
+		alert(OauthToken);
 		
         var req = new XMLHttpRequest();
 
@@ -139,12 +139,12 @@ var homePage = "Home.html"; // change this to file name
                     return;
             }
 
-            app.error('Data request failed: ' + e.target.response);
+            app.error('Data request failed 1 : ' + e.target.response);
         };
 
         req.onerror = function (ex)
         {
-            app.error('Data request failed: ' + ex.error);
+            app.error('Data request failed 2 : ' + ex.error);
         }
 
         req.send();
