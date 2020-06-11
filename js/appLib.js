@@ -61,15 +61,13 @@ var homePage = "Home.html"; // change this to file name
 
      signIn: function ()
     {
-        alert("signIn - 2");		
+        alert("signIn - 3");	//this should be called when app is opened first and second onward
 		
 		app.authenticate(function (authresult) {
 
-			alert("authresult.accessToken - " +authresult.accessToken);		
+			//alert("authresult.accessToken - " +authresult.accessToken);		
 		
-            localStorage.OauthToken = authresult.accessToken;
-			
-			app.getUserInfo();
+			app.getUserInfo(authresult.accessToken);
 			
           
         });
@@ -102,18 +100,18 @@ var homePage = "Home.html"; // change this to file name
         
         //window.location.href = homePage;
 
-		alert("redirectHome");
+		//alert("redirectHome");
     },
 	//call graph api to get user info
 	getUserInfo: function (OauthToken) {
         try
         {
 
-		alert('inside getUserInfo');
+		//alert('inside getUserInfo');
 		
         var req = new XMLHttpRequest();
 
-        var graphEndpoint = 'https://graph.microsoft.com/v1.0/me'; //userInfo from Graph api
+        var graphEndpoint = 'https://graph.microsoft.com/v1.0/me'; 
 
         req.open("GET", graphEndpoint, true);
 		
@@ -129,7 +127,7 @@ var homePage = "Home.html"; // change this to file name
 					
 					//alert(req.responseText);
 		
-                    app.redirectHome();
+                    //app.redirectHome();
 					
                     return;
             }
@@ -150,6 +148,10 @@ var homePage = "Home.html"; // change this to file name
             alert(ex1.message);
         }
     },
+	error: function (err) {
+        //customise the error display as required
+        alert(err);
+    }
  };
 
  function goBack() {
