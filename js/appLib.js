@@ -73,14 +73,9 @@ var homePage = "category.html"; // change this to file name
 		app.authenticate(function (authresult) {
 
 			//alert("authresult.accessToken - " +authresult.accessToken);		
-		alert("1111 : " +authresult.getUserInfo);
-        alert("2222 : " +authresult.getUserInfo.getUserID);
-        alert("3333 : " +authresult.accessToken);
-        alert("4444 : " +authresult.accessToken.getUserInfo);
 			app.getUserInfo(authresult.accessToken);
-            alert(authresult.getUserInfo);
-            alert(authresult.getUserInfo.getUserID);
-            app.redirectHome();		 	
+
+            		 	
           
         });
     },
@@ -135,11 +130,13 @@ var homePage = "category.html"; // change this to file name
             {         
 					alert('graph response');
 		
-					alert(req.response); //try to debug here later
+					//alert(req.response); //try to debug here later
 					
 					alert(req.responseText);
+                    alert(req.responseText.userPrincipalName);
 		
-        
+          app.redirectHome();
+          return;
 					//return;
             }
 
