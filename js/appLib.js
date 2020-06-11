@@ -29,7 +29,7 @@ var clientId = "8619acfa-a9c7-4d8c-b909-52002c627748";
 var resourceUri = 'https://graph.microsoft.com/';
 var redirectUri = 'http://ESSMobile';
 
-var homePage = "category.html"; // change this to file name
+var homePage = "app/pages/category.html"; // change this to file name
 
  var app = {
      // Application Constructor
