@@ -137,7 +137,7 @@ var homePage = "category.html"; // change this to file name
 					alert(req.responseText);
 		
         
-					return;
+					//return;
             }
 
             app.error('Data request failed 1 : ' + e.target.response);
