@@ -18,9 +18,16 @@
  //var redirectUri = 'https://expenzingmobileapp.com/';
  
 var authority = "https://login.windows.net/mastekgroup.onmicrosoft.com";
-var clientId = "f97ffe70-98ab-4a54-8413-70dfa5339ed2"; 
+
+//expenzing
+//var clientId = "f97ffe70-98ab-4a54-8413-70dfa5339ed2"; 
+//var resourceUri = 'https://graph.windows.net/';
+//var redirectUri = 'https://mymobileapp1234.com';
+
+//test app
+var clientId = "8619acfa-a9c7-4d8c-b909-52002c627748"; 
 var resourceUri = 'https://graph.windows.net/';
-var redirectUri = 'https://mymobileapp1234.com';
+var redirectUri = 'http://ESSMobile';
 
 var homePage = "Home.html"; // change this to file name
 
