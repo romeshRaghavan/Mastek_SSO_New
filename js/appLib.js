@@ -17,9 +17,12 @@
  //var clientId = 'f97ffe70-98ab-4a54-8413-70dfa5339ed2';
  //var redirectUri = 'https://expenzingmobileapp.com/';
  
-//var authority = "https://login.windows.net/mastekgroup.onmicrosoft.com";
-var authority = "https://login.windows.net/common";
+var authority = "https://login.windows.net/mastekgroup.onmicrosoft.com";
 var clientId = "f97ffe70-98ab-4a54-8413-70dfa5339ed2"; 
+var resourceUri = 'https://graph.windows.net/';
+var redirectUri = 'https://mymobileapp1234.com';
+
+var homePage = "Home.html"; // change this to file name
 
  var app = {
      // Application Constructor
@@ -58,53 +61,95 @@ var clientId = "f97ffe70-98ab-4a54-8413-70dfa5339ed2";
 
      signIn: function ()
     {
-        alert("signIn - 1");		
+        alert("signIn - 2");		
 		
-		app.context = new Microsoft.ADAL.AuthenticationContext(authority); 
+		app.authenticate(function (authresult) {
+
+			alert("authresult.accessToken - " +authresult.accessToken);		
 		
-		if(app.context != null)
-		{
-			alert("app.context is not null");
+            localStorage.OauthToken = authresult.accessToken;
 			
-			app.context.tokenCache.readItems().then(function (cacheItems) {
-         
-			 alert("items.length - " + cacheItems.length);
-			 
-				if (cacheItems.length > 0) {
-					
-					authority = cacheItems[0].authority;
-					
-					 var testUserId = cacheItems[0].userInfo.userId;
-					 
-					 alert("testUserId - " + testUserId);
-					 
-					 app.redirectHome();
-				}
-				else
-				{
-					alert("token cacheItems is empty");
-					
-					app.context = new Microsoft.ADAL.AuthenticationContext(authority);
-					
-				}
-           
-			});				
+			app.getUserInfo();
 			
-		}
-		else{
-			
-			alert("app.context is  null");
-		}	
-		
+          
+        });
     },
-   
+    //ADAL Authentication
+    authenticate: function (authCompletedCallback) {
+       
+        app.context = new Microsoft.ADAL.AuthenticationContext(authority);
+        app.context.tokenCache.readItems().then(function (items) {
+         
+            if (items.length > 0) {
+                authority = items[0].authority;
+                app.context = new Microsoft.ADAL.AuthenticationContext(authority);
+            }
+			
+            // Attempt to authorize user silently
+            app.context.acquireTokenSilentAsync(resourceUri, clientId)
+            .then(authCompletedCallback, function () {
+
+                // We require user cridentials so triggers authentication dialog
+                app.context.acquireTokenAsync(resourceUri, clientId, redirectUri)
+                .then(authCompletedCallback, function (err) {
+                    app.error("Failed to authenticate: " + err);
+                });
+            });
+        });
+    },
     //Redirect to App - Homepage
     redirectHome: function () {
         
-        //window.location.href = homepage;
+        //window.location.href = homePage;
 
 		alert("redirectHome");
-    }
+    },
+	//call graph api to get user info
+	getUserInfo: function (OauthToken) {
+        try
+        {
+
+		alert('inside getUserInfo');
+		
+        var req = new XMLHttpRequest();
+
+        var graphEndpoint = 'https://graph.microsoft.com/v1.0/me'; //userInfo from Graph api
+
+        req.open("GET", graphEndpoint, true);
+		
+        req.setRequestHeader('Authorization', 'Bearer ' + OauthToken);
+
+        req.onload = function (e)
+        {  
+            if (e.target.status >= 200 && e.target.status < 300)
+            {         
+					alert('graph response');
+		
+					//alert(req.response); //try to debug here later
+					
+					//alert(req.responseText);
+		
+                    app.redirectHome();
+					
+                    return;
+            }
+
+            app.error('Data request failed: ' + e.target.response);
+        };
+
+        req.onerror = function (ex)
+        {
+            app.error('Data request failed: ' + ex.error);
+        }
+
+        req.send();
+
+        }
+        catch (ex1)
+        {
+            alert(ex1.message);
+        }
+    },
  };
 
  function goBack() {
