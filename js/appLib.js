@@ -26,7 +26,7 @@ var authority = "https://login.windows.net/mastekgroup.onmicrosoft.com";
 
 //test app
 var clientId = "8619acfa-a9c7-4d8c-b909-52002c627748"; 
-var resourceUri = 'https://graph.windows.net/';
+var resourceUri = 'https://graph.microsoft.com/';
 var redirectUri = 'http://ESSMobile';
 
 var homePage = "Home.html"; // change this to file name
@@ -114,17 +114,7 @@ var homePage = "Home.html"; // change this to file name
         try
         {
 
-		//alert(OauthToken);
-
-        ('#tabSuccess').text(OauthToken);
-        ('#loginModal').text(OauthToken);
-        ('#loading').text(OauthToken);
-
-        alert(('#tabSuccess').text(OauthToken));
-        alert(('#loginModal').text(OauthToken));
-        alert(('#loading').text(OauthToken));
-
-        
+          alert(OauthToken);
 		
         var req = new XMLHttpRequest();
 
