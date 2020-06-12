@@ -22,7 +22,7 @@ var authority = "https://login.windows.net/mastekgroup.onmicrosoft.com";
 //expenzing
 var clientId = "f97ffe70-98ab-4a54-8413-70dfa5339ed2"; 
 //var resourceUri = 'https://graph.windows.net/';
-var redirectUri = 'https://expenzingMobileApp.com/portal/';
+var redirectUri = 'https://mastekexpenzing';
 //var redirectUri = 'http://mymobileapp1234';
 //test app
 //var clientId = "8619acfa-a9c7-4d8c-b909-52002c627748"; 
