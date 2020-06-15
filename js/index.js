@@ -74,6 +74,7 @@ function login() {
             if (data.Status == 'Success') {
                 if (data.hasOwnProperty('multiLangInMobile') && data.multiLangInMobile != null &&
                     data.multiLangInMobile) {
+                    alert("success if")
                     var headerBackBtn = defaultPagePath + 'withoutBckBtn.html';
                     var pageRef = defaultPagePath + 'language.html';
                     j('#mainHeader').load(headerBackBtn);
@@ -83,6 +84,7 @@ function login() {
                     setUserSessionDetails(data, jsonToBeSend);
                     j('#loading').hide();
                 } else {
+                    alert("success else");
                     var headerBackBtn = defaultPagePath + 'categoryMsgPage.html';
                     var pageRef = defaultPagePath + 'category.html';
                     j('#mainHeader').load(headerBackBtn);
@@ -144,9 +146,9 @@ function commanLogin() {
     var domainName = userNameValue.split('@')[1];
     var jsonToDomainNameSend = new Object();
     jsonToDomainNameSend["userName"] = domainName;
-    jsonToDomainNameSend["mobilePlatform"] = device.platform;
+    //jsonToDomainNameSend["mobilePlatform"] = device.platform;
     jsonToDomainNameSend["mobilePlatform"] = "Android";
-    //jsonToDomainNameSend["appType"] = "NEXGEN_EXPENZING_TNE_APP";
+    jsonToDomainNameSend["appType"] = "NEXGEN_EXPENZING_TNE_APP";
     //var res=JSON.stringify(jsonToDomainNameSend);
     var requestPath = WebServicePath;
     j.ajax({
