@@ -58,7 +58,7 @@ function login() {
     var password = document.getElementById("pass");*/
 
     var jsonToBeSend = new Object();
-    jsonToBeSend["user"] = userName.value;
+    jsonToBeSend["user"] = azureUserName;
     //jsonToBeSend["pass"] = password.value;
     //setUrlPathLocalStorage(urlPath);
     urlPath = window.localStorage.getItem("urlPath");
