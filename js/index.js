@@ -3,7 +3,7 @@ var defaultPagePath = 'app/pages/';
 var headerMsg = "Expenzing";
 //var urlPath = 'http://1.255.255.36:13130/TnEV1_0AWeb/WebService/Login/'
 //var WebServicePath ='http://1.255.255.99:8681/NexstepWebService/mobileLinkResolver.service';
-//var WebServicePath = 'http://live.nexstepapps.com:8284/NexstepWebService/mobileLinkResolver.service';
+//var WebServicePath = 'https://live.nexstepapps.com:8284/NexstepWebService/mobileLinkResolver.service';
 //var WebServicePath ='http://1.255.255.95:8080/NexstepWebService/mobileLinkResolver.service';
 //var WebServicePath ='http://1.255.255.170:8085/NexstepWebService/mobileLinkResolver.service';
 var WebServicePath = 'https://appservices.expenzing.com/NexstepWebService/mobileLinkResolver.service';
@@ -62,6 +62,7 @@ function login() {
     //jsonToBeSend["pass"] = password.value;
     //setUrlPathLocalStorage(urlPath);
     urlPath = window.localStorage.getItem("urlPath");
+    alert("path  : "+urlPath);
     j('#loading').show();
     j.ajax({
         url: urlPath + "LoginWebService",
@@ -144,8 +145,8 @@ function commanLogin() {
     var jsonToDomainNameSend = new Object();
     jsonToDomainNameSend["userName"] = domainName;
     jsonToDomainNameSend["mobilePlatform"] = device.platform;
-    //jsonToDomainNameSend["mobilePlatform"] = "Android";
-    jsonToDomainNameSend["appType"] = "NEXGEN_EXPENZING_TNE_APP";
+    jsonToDomainNameSend["mobilePlatform"] = "Android";
+    //jsonToDomainNameSend["appType"] = "NEXGEN_EXPENZING_TNE_APP";
     //var res=JSON.stringify(jsonToDomainNameSend);
     var requestPath = WebServicePath;
     j.ajax({
@@ -157,14 +158,17 @@ function commanLogin() {
         data: JSON.stringify(jsonToDomainNameSend),
         success: function(data) {
             if (data.status == 'Success') {
+                alert("in success");
                 urlPath = data.message;
                 setUrlPathLocalStorage(urlPath);
                 login();
             } else if (data.status == 'Failure') {
+                alert("in failure");
                 successMessage = data.message;
                 document.getElementById("loginErrorMsg").innerHTML = successMessage;
                 j('#loginErrorMsg').hide().fadeIn('slow').delay(2000).fadeOut('slow');
             } else {
+                alert("in else");
                 successMessage = data.message;
                 if (successMessage == "" || successMessage == null) {
                     alert(window.lang.translate('Please enter correct username or password'));
