@@ -3,10 +3,10 @@ var defaultPagePath = 'app/pages/';
 var headerMsg = "Expenzing";
 //var urlPath = 'http://1.255.255.36:13130/TnEV1_0AWeb/WebService/Login/'
 //var WebServicePath ='http://1.255.255.99:8681/NexstepWebService/mobileLinkResolver.service';
-//var WebServicePath = 'http://live.nexstepapps.com:8284/NexstepWebService/mobileLinkResolver.service';
+var WebServicePath = 'http://live.nexstepapps.com:8284/NexstepWebService/mobileLinkResolver.service';
 //var WebServicePath ='http://1.255.255.95:8080/NexstepWebService/mobileLinkResolver.service';
 //var WebServicePath ='http://1.255.255.170:8085/NexstepWebService/mobileLinkResolver.service';
-var WebServicePath = 'https://appservices.expenzing.com/NexstepWebService/mobileLinkResolver.service';
+//var WebServicePath = 'https://appservices.expenzing.com/NexstepWebService/mobileLinkResolver.service';
 var clickedFlagCar = false;
 var clickedFlagTicket = false;
 var clickedFlagHotel = false;
@@ -50,16 +50,16 @@ j(document).ready(function() {
 
 function login() {
     dropDetailTables();
-    if (document.getElementById("userName") != null) {
+/*    if (document.getElementById("userName") != null) {
         var userName = document.getElementById("userName");
     } else if (document.getElementById("userName") != null) {
         var userName = document.getElementById("userNameId");
     }
-    var password = document.getElementById("pass");
+    var password = document.getElementById("pass");*/
 
     var jsonToBeSend = new Object();
     jsonToBeSend["user"] = userName.value;
-    jsonToBeSend["pass"] = password.value;
+    //jsonToBeSend["pass"] = password.value;
     //setUrlPathLocalStorage(urlPath);
     urlPath = window.localStorage.getItem("urlPath");
     j('#loading').show();
@@ -137,8 +137,9 @@ function login() {
 }
 
 function commanLogin() {
-    var userName = document.getElementById("userName");
-    var userNameValue = userName.value;
+    /*var userName = document.getElementById("userName");
+    var userNameValue = userName.value;*/
+    var userNameValue = azureUserName;
     var domainName = userNameValue.split('@')[1];
     var jsonToDomainNameSend = new Object();
     jsonToDomainNameSend["userName"] = domainName;
@@ -245,22 +246,25 @@ function init() {
             headerBackBtn = defaultPagePath + 'categoryMsgPage.html';
         } else {
             headerBackBtn = defaultPagePath + 'expenzingImagePage.html';
-            pgRef = defaultPagePath + 'loginPage.html';
+            //pgRef = defaultPagePath + 'loginPage.html';
         }
     } else {
         headerBackBtn = defaultPagePath + 'expenzingImagePage.html';
-        pgRef = defaultPagePath + 'loginPage.html';
+        //pgRef = defaultPagePath + 'loginPage.html';
     }
 
     j(document).ready(function() {
         j('#mainHeader').load(headerBackBtn);
-        j('#mainContainer').load(pgRef);
-        j('#mainContainer').load(pgRef, function() {
+        if(!headerBackBtn.includes("loginPage")){
+         j('#mainContainer').load(pgRef);
+        }
+        
+        /*j('#mainContainer').load(pgRef, function() {
             if (window.localStorage.getItem("UserStatus") != null && window.localStorage.getItem("UserStatus") == 'ResetPswd') {
                 document.getElementById("userName").value = window.localStorage.getItem("UserName");
             }
 
-        });
+        });*/
         j('#mainContainer').swipe({
             swipe: function(event, direction, distance, duration, fingercount) {
                 switch (direction) {
@@ -2298,12 +2302,13 @@ function validateValidMobileUser() {
     var jsonToBeSend = new Object();
     if (window.localStorage.getItem("EmployeeId") != null && (window.localStorage.getItem("UserStatus") == null || window.localStorage.getItem("UserStatus") == 'Valid')) {
         jsonToBeSend["user"] = window.localStorage.getItem("UserName");
-        jsonToBeSend["pass"] = window.localStorage.getItem("Password");
+        //-----CHANGE----
+        //jsonToBeSend["pass"] = window.localStorage.getItem("Password");
         j.ajax({
             url: window.localStorage.getItem("urlPath") + "ValidateUserWebservice",
             type: 'POST',
             dataType: 'json',
-            crossDomain: true,
+            crossDomain: true,//////
             data: JSON.stringify(jsonToBeSend),
             success: function(data) {
 

@@ -20,16 +20,18 @@
 var authority = "https://login.windows.net/mastekgroup.onmicrosoft.com";
 
 //expenzing
-var clientId = "f97ffe70-98ab-4a54-8413-70dfa5339ed2"; 
+var clientId = "f97ffe70-98ab-4a54-8413-70dfa5339ed2";
+
 //var resourceUri = 'https://graph.windows.net/';
 var redirectUri = 'https://mastekexpenzing';
-//var redirectUri = 'http://mymobileapp1234';
+
 //test app
 //var clientId = "8619acfa-a9c7-4d8c-b909-52002c627748"; 
 var resourceUri = 'https://graph.microsoft.com/';
 //var redirectUri = 'http://ESSMobile';
 
 var homePage = "app/pages/category.html"; // change this to file name
+var azureUserName = null;
 
  var app = {
      // Application Constructor
@@ -47,7 +49,7 @@ var homePage = "app/pages/category.html"; // change this to file name
 
      onDeviceReady: function() {
         app.signIn();
-         /*if (navigator.notification) { // Override default HTML alert with native dialog
+         if (navigator.notification) { // Override default HTML alert with native dialog
              window.alert = function(message) {
                  navigator.notification.alert(
                      message, // message
@@ -63,12 +65,12 @@ var homePage = "app/pages/category.html"; // change this to file name
          validateValidMobileUser();
          document.addEventListener('onSMSArrive', function(e) {
              saveIncomingSMSOnLocal(e);
-         }, false);*/
+         }, false);
      },
 
      signIn: function ()
     {
-        alert("signIn - 3");	//this should be called when app is opened first and second onward
+        //alert("signIn - 3");	//this should be called when app is opened first and second onward
 		
 		app.authenticate(function (authresult) {
 
@@ -132,12 +134,19 @@ var homePage = "app/pages/category.html"; // change this to file name
 		
 					//alert(req.response); //try to debug here later
 					
-					alert(req.responseText);
-                    alert(req.responseText.userPrincipalName);
-		
+					//alert(req.responseText);
+                var azureTokenData = req.responseText;
+                alert("azureTokenData :"+azureTokenData);
+                azureUserName = "Expenzing@mastek.com";
+                /*if(!azureUserName.includes("mastek"){
+                   azureUserName += "@mastek.com";
+                }*/
+                commanLogin();
+                return;
+		/*
           app.redirectHome();
-          return;
-					//return;
+          return;*/
+				
             }
 
             app.error('Data request failed 1 : ' + e.target.response);
@@ -1441,7 +1450,7 @@ function arrayRemove(arr, value) {
      window.localStorage.removeItem("BudgetingStatus");
      window.localStorage.removeItem("UnitId");
      window.localStorage.removeItem("UserName");
-     window.localStorage.removeItem("Password");
+     //window.localStorage.removeItem("Password");
      window.localStorage.removeItem("MobileMapRole");
      window.localStorage.removeItem("EaInMobile");
      window.localStorage.removeItem("multiLangInMobile");
@@ -1507,7 +1516,7 @@ function arrayRemove(arr, value) {
      } */
      //End
      window.localStorage.setItem("UserName", userJSON["user"]);
-     window.localStorage.setItem("Password", userJSON["pass"]);
+     //window.localStorage.setItem("Password", userJSON["pass"]);
      window.localStorage.setItem("localLanguage", 0);
 
      //***************************** Profile Image -- Start *******************************************************//
