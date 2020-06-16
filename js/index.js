@@ -2313,12 +2313,11 @@ function validateValidMobileUser() {
             url: window.localStorage.getItem("urlPath") + "ValidateUserWebservice",
             type: 'POST',
             dataType: 'json',
-            crossDomain: true,//////
+            crossDomain: true,
             data: JSON.stringify(jsonToBeSend),
             success: function(data) {
 
                 if (data.Status == 'Success') {
-                    alert("validateValidMobileUser success");
                     window.lang.change(window.localStorage.getItem("localLanguage"));
                     setUserStatusInLocalStorage("Valid");
                     /*if(!data.MobileMapRole){
@@ -2327,7 +2326,6 @@ function validateValidMobileUser() {
                             window.localStorage.setItem("MobileMapRole",data.MobileMapRole);
                         } */
                 } else if (data.Status == 'NoAndroidRole') {
-                    alert("validateValidMobileUser success");
                     successMessage = data.Message;
                     headerBackBtn = defaultPagePath + 'expenzingImagePage.html';
                     pgRef = defaultPagePath + 'loginPage.html';
@@ -2340,7 +2338,6 @@ function validateValidMobileUser() {
                     });
 
                 } else if (data.Status == 'InactiveUser') {
-                    alert("validateValidMobileUser InactiveUser");
                     successMessage = data.Message;
                     headerBackBtn = defaultPagePath + 'expenzingImagePage.html';
                     pgRef = defaultPagePath + 'loginPage.html';
@@ -2353,7 +2350,6 @@ function validateValidMobileUser() {
                         j('#loading').hide();
                     });
                 } else if (data.Status == 'ChangedUserCredentials') {
-                    alert("validateValidMobileUser ChangedUserCredentials");
                     successMessage = data.Message;
                     headerBackBtn = defaultPagePath + 'expenzingImagePage.html';
                     pgRef = defaultPagePath + 'loginPageResetPswd.html';

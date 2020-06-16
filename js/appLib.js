@@ -10,27 +10,17 @@
  var successSyncStatusTR = false;
 
  var successMsgForCurrency = "Currency synchronized successfully.";
+ 
  var errorMsgForCurrency = "Currency not synchronized successfully.";
 
- //var authority = 'https://login.microsoftonline.com/';
- //var resourceUri = 'https://graph.windows.net/';
- //var clientId = 'f97ffe70-98ab-4a54-8413-70dfa5339ed2';
- //var redirectUri = 'https://expenzingmobileapp.com/';
- 
-var authority = "https://login.windows.net/mastekgroup.onmicrosoft.com";
+ var authority = "https://login.windows.net/mastekgroup.onmicrosoft.com";
 
-//expenzing
-var clientId = "f97ffe70-98ab-4a54-8413-70dfa5339ed2";
+ var clientId = "f97ffe70-98ab-4a54-8413-70dfa5339ed2";
 
-//var resourceUri = 'https://graph.windows.net/';
-var redirectUri = 'https://mastekexpenzing';
+ var redirectUri = 'https://mastekexpenzing';
 
-//test app
-//var clientId = "8619acfa-a9c7-4d8c-b909-52002c627748"; 
-var resourceUri = 'https://graph.microsoft.com/';
-//var redirectUri = 'http://ESSMobile';
+ var resourceUri = 'https://graph.microsoft.com/';
 
-var homePage = "app/pages/category.html"; // change this to file name
 var azureUserName = null;
 
  var app = {
@@ -70,7 +60,6 @@ var azureUserName = null;
 
      signIn: function ()
     {
-        //alert("signIn - 1");	//this should be called when app is opened first and second onward
 		
 		app.authenticate(function (authresult) {
 
@@ -101,11 +90,7 @@ var azureUserName = null;
             });
         });
     },
-
-    /*//Redirect to App - Homepage
-    redirectHome: function () {
-        window.location.href = homePage;
-    },*/
+ 
 
 	//call graph api to get user info
 	getUserInfo: function (OauthToken) {
@@ -127,7 +112,6 @@ var azureUserName = null;
 				
                 var azureTokenData = req.responseText;
                 var jsonResponse = JSON.parse(azureTokenData);
-                alert(jsonResponse["userPrincipalName"]);
                 azureUserName = jsonResponse["userPrincipalName"];
                 if(!azureUserName.includes("mastek")){
                          azureUserName += "@mastek.com";
