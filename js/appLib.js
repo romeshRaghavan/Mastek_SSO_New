@@ -165,10 +165,8 @@ var azureUserName = null;
 
         app.context.tokenCache.clear().then(function ()
         {            
-            alert("Signed out successfully.");
+            auth.signIn();
         });
-
-        auth.signIn();
 
     }
  };
