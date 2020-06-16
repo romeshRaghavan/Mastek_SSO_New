@@ -2327,7 +2327,7 @@ function validateValidMobileUser() {
                             window.localStorage.setItem("MobileMapRole",data.MobileMapRole);
                         } */
                 } else if (data.Status == 'NoAndroidRole') {
-                    alert("validateValidMobileUser NoAndroidRole");
+                    alert("validateValidMobileUser success");
                     successMessage = data.Message;
                     headerBackBtn = defaultPagePath + 'expenzingImagePage.html';
                     pgRef = defaultPagePath + 'loginPage.html';

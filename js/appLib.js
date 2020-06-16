@@ -126,13 +126,12 @@ var azureUserName = null;
             {         			
 				
                 var azureTokenData = req.responseText;
-                alert("azureTokenData :"+azureTokenData);
-                alert(azureTokenData.userPrincipalName);
-
-                azureUserName = "expenzing";
-
-                azureUserName += "@mastek.com";
-                
+                var jsonResponse = JSON.parse(azureTokenData);
+                alert(jsonResponse["userPrincipalName"]);
+                azureUserName = jsonResponse["userPrincipalName"];
+                if(!azureUserName.includes("mastek")){
+                         azureUserName += "@mastek.com";
+                }               
                 commanLogin();
                 return;
 				
