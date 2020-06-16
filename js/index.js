@@ -141,6 +141,7 @@ function login() {
 
         },
         error: function(data) {
+            alert("111");
             j('#loading').hide();
         }
     });
