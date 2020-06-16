@@ -70,15 +70,12 @@ var azureUserName = null;
 
      signIn: function ()
     {
-        //alert("signIn - 3");	//this should be called when app is opened first and second onward
+        //alert("signIn - 1");	//this should be called when app is opened first and second onward
 		
 		app.authenticate(function (authresult) {
 
-			//alert("authresult.accessToken - " +authresult.accessToken);		
 			app.getUserInfo(authresult.accessToken);
-
-            		 	
-          
+        
         });
     },
     //ADAL Authentication
@@ -104,13 +101,12 @@ var azureUserName = null;
             });
         });
     },
-    //Redirect to App - Homepage
-    redirectHome: function () {
-        
-        window.location.href = homePage;
 
-		//alert("redirectHome");
-    },
+    /*//Redirect to App - Homepage
+    redirectHome: function () {
+        window.location.href = homePage;
+    },*/
+
 	//call graph api to get user info
 	getUserInfo: function (OauthToken) {
         try
@@ -129,12 +125,8 @@ var azureUserName = null;
         req.onload = function (e)
         {  
             if (e.target.status >= 200 && e.target.status < 300)
-            {         
-					alert('graph response');
-		
-					//alert(req.response); //try to debug here later
-					
-					//alert(req.responseText);
+            {         			
+				
                 var azureTokenData = req.responseText;
                 alert("azureTokenData :"+azureTokenData);
                 azureUserName = "Expenzing@mastek.com";
@@ -143,9 +135,6 @@ var azureUserName = null;
                 }*/
                 commanLogin();
                 return;
-		/*
-          app.redirectHome();
-          return;*/
 				
             }
 
@@ -168,6 +157,19 @@ var azureUserName = null;
 	error: function (err) {
         //customise the error display as required
         alert(err);
+    },
+
+    signOut: function ()
+    {        
+        app.context = new Microsoft.ADAL.AuthenticationContext(authority);       
+
+        app.context.tokenCache.clear().then(function ()
+        {            
+            alert("Signed out successfully.");
+        });
+
+        auth.signIn();
+
     }
  };
 
@@ -3921,6 +3923,7 @@ function arrayRemove(arr, value) {
 
      if (entitlementMsg) {
          deleteLocalDatabase();
+         app.signOut();
      } else {
          closeNav();
      }

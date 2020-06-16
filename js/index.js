@@ -58,11 +58,16 @@ function login() {
     var password = document.getElementById("pass");*/
 
     var jsonToBeSend = new Object();
-    jsonToBeSend["user"] = azureUserName;
+    if(azureUserName.includes("mastek.com")){
+      azureUserName  =  azureUserName.split('@')[0];
+      alert("azureUserName :"+azureUserName);
+      jsonToBeSend["user"] = azureUserName;
+    }else{
+        jsonToBeSend["user"] = azureUserName;
+    } 
     //jsonToBeSend["pass"] = password.value;
     //setUrlPathLocalStorage(urlPath);
     urlPath = window.localStorage.getItem("urlPath");
-    alert("path  : "+urlPath);
     j('#loading').show();
     j.ajax({
         url: urlPath + "LoginWebService",
@@ -74,7 +79,6 @@ function login() {
             if (data.Status == 'Success') {
                 if (data.hasOwnProperty('multiLangInMobile') && data.multiLangInMobile != null &&
                     data.multiLangInMobile) {
-                    alert("success if")
                     var headerBackBtn = defaultPagePath + 'withoutBckBtn.html';
                     var pageRef = defaultPagePath + 'language.html';
                     j('#mainHeader').load(headerBackBtn);
@@ -84,7 +88,6 @@ function login() {
                     setUserSessionDetails(data, jsonToBeSend);
                     j('#loading').hide();
                 } else {
-                    alert("success else");
                     var headerBackBtn = defaultPagePath + 'categoryMsgPage.html';
                     var pageRef = defaultPagePath + 'category.html';
                     j('#mainHeader').load(headerBackBtn);
@@ -160,17 +163,14 @@ function commanLogin() {
         data: JSON.stringify(jsonToDomainNameSend),
         success: function(data) {
             if (data.status == 'Success') {
-                alert("in success");
                 urlPath = data.message;
                 setUrlPathLocalStorage(urlPath);
                 login();
             } else if (data.status == 'Failure') {
-                alert("in failure");
                 successMessage = data.message;
                 document.getElementById("loginErrorMsg").innerHTML = successMessage;
                 j('#loginErrorMsg').hide().fadeIn('slow').delay(2000).fadeOut('slow');
             } else {
-                alert("in else");
                 successMessage = data.message;
                 if (successMessage == "" || successMessage == null) {
                     alert(window.lang.translate('Please enter correct username or password'));
