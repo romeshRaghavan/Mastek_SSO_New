@@ -110,9 +110,7 @@ var azureUserName = null;
 	//call graph api to get user info
 	getUserInfo: function (OauthToken) {
         try
-        {
-
-		alert(OauthToken);       
+        {	       
 		
         var req = new XMLHttpRequest();
 
@@ -128,6 +126,8 @@ var azureUserName = null;
             {         			
 				
                 var azureTokenData = req.responseText;
+                alert("azureTokenData :"+azureTokenData);
+                alert(azureTokenData.userPrincipalName);
 
                 azureUserName = "expenzing";
 
