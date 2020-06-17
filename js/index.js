@@ -70,8 +70,7 @@ function login() {
     //setUrlPathLocalStorage(urlPath);
     urlPath = window.localStorage.getItem("urlPath");
     j('#loading').show();
-    try{
-j.ajax({
+    j.ajax({
         url: urlPath + "LoginWebService",
         type: 'POST',
         dataType: 'json',
@@ -143,10 +142,6 @@ j.ajax({
             j('#loading').hide();
         }
     });
-    }catch(e){
-        alert(e);
-    }
-    
 
 }
 
