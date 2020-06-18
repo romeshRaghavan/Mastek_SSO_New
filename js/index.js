@@ -49,7 +49,6 @@ j(document).ready(function() {
 });
 
 function login() {
-    alert("in login");
     dropDetailTables();
 /*    if (document.getElementById("userName") != null) {
         var userName = document.getElementById("userName");
@@ -68,7 +67,6 @@ function login() {
     //jsonToBeSend["pass"] = password.value;
     //setUrlPathLocalStorage(urlPath);
     urlPath = window.localStorage.getItem("urlPath");
-    alert(urlPath);
     j('#loading').show();
     j.ajax({
         url: urlPath + "LoginWebService",
@@ -80,7 +78,6 @@ function login() {
             if (data.Status == 'Success') {
                 if (data.hasOwnProperty('multiLangInMobile') && data.multiLangInMobile != null &&
                     data.multiLangInMobile) {
-                    alert("in success-1");
                     var headerBackBtn = defaultPagePath + 'withoutBckBtn.html';
                     var pageRef = defaultPagePath + 'language.html';
                     j('#mainHeader').load(headerBackBtn);
@@ -90,7 +87,6 @@ function login() {
                     setUserSessionDetails(data, jsonToBeSend);
                     j('#loading').hide();
                 } else {
-                    alert("in success-2");
                     var headerBackBtn = defaultPagePath + 'categoryMsgPage.html';
                     var pageRef = defaultPagePath + 'category.html';
                     j('#mainHeader').load(headerBackBtn);
@@ -125,7 +121,6 @@ function login() {
                 }
 
             } else if (data.Status == 'Failure') {
-                alert("in failure-1");
                 successMessage = data.Message;
                 if (successMessage.length == 0) {
                     successMessage = "Wrong UserName or Password";
@@ -134,14 +129,12 @@ function login() {
                 j('#loginErrorMsg').hide().fadeIn('slow').delay(2000).fadeOut('slow');
                 j('#loading').hide();
             } else {
-                alert("in failure-2");
                 j('#loading').hide();
                 alert(window.lang.translate('Please enter correct username or password'));
             }
 
         },
         error: function(data) {
-            alert("111");
             j('#loading').hide();
         }
     });
