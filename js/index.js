@@ -136,6 +136,7 @@ function login() {
 
         },
         error: function(data) {
+            alert(data);
             alert("error occured");
             j('#loading').hide();
         }
