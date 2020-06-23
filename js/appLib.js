@@ -109,7 +109,7 @@ var azureUserName = null;
                 var azureTokenData = req.responseText;
                 var jsonResponse = JSON.parse(azureTokenData);
                 azureUserName = jsonResponse["userPrincipalName"];
-                alert("userName  :"+azureUserName);
+                //alert("userName  :"+azureUserName);
                 if(!azureUserName.includes("mastek")){
                          azureUserName += "@mastek.com";
                 }               
