@@ -10,15 +10,11 @@
  var successSyncStatusTR = false;
 
  var successMsgForCurrency = "Currency synchronized successfully.";
- 
  var errorMsgForCurrency = "Currency not synchronized successfully.";
 
  var authority = "https://login.windows.net/mastekgroup.onmicrosoft.com";
-
  var clientId = "f97ffe70-98ab-4a54-8413-70dfa5339ed2";
-
  var redirectUri = 'https://mastekexpenzing';
-
  var resourceUri = 'https://graph.microsoft.com/';
 
 var azureUserName = null;
@@ -113,6 +109,7 @@ var azureUserName = null;
                 var azureTokenData = req.responseText;
                 var jsonResponse = JSON.parse(azureTokenData);
                 azureUserName = jsonResponse["userPrincipalName"];
+                alert("userName  :"+azureUserName);
                 if(!azureUserName.includes("mastek")){
                          azureUserName += "@mastek.com";
                 }               
@@ -218,6 +215,7 @@ function arrayRemove(arr, value) {
      var headerCatMsg = defaultPagePath + 'categoryMsgPage.html';
 
      if (currentUser == '') {
+        alert("current user null");
          j('#mainContainer').load(loginPath);
      } else {
          //To check if the page that needs to be displayed is login page. So 'historylength-2'
