@@ -67,7 +67,7 @@ function login() {
     //jsonToBeSend["pass"] = password.value;
     //setUrlPathLocalStorage(urlPath);
     urlPath = window.localStorage.getItem("urlPath");
-    alert(urlPath);
+    //alert(urlPath);
     j('#loading').show();
     j.ajax({
         url: urlPath + "LoginWebService",
@@ -136,8 +136,8 @@ function login() {
 
         },
         error: function(data) {
-            alert(data);
-            alert("error occured");
+            //alert(data);
+            //alert("error occured");
             j('#loading').hide();
         }
     });
